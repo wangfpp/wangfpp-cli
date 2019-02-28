@@ -11,6 +11,6 @@
 
 ```javascript
 
-	import a from b
+	wangfpp-cli option
 
 ```
