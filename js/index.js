@@ -3,9 +3,19 @@
 * @Author: wangfpp
 * @Date:   2019-02-28 11:33:07
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2019-02-28 17:56:18
+* @Last Modified time: 2019-02-28 20:11:48
 */
-let minimist = require('minimist');
-let argv = minimist(process.argv.slice(2));
-console.log(argv);
+const clear = require('clear');
+const chalk = require('chalk');
+const figlet = require('figlet');
+const package = require('../package.json'); // 引入package项目的相关信息
+const minimist = require('minimist');
 
+
+// clear(); // 清空控制台
+// console.log( // 
+// 	chalk.green(
+// 		figlet.textSync(`${package.name}`, { horizontalLayout: 'full'})
+// 	)
+// );
+console.log(process.argv);
