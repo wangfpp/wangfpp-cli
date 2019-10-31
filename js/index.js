@@ -3,7 +3,7 @@
 * @Author: wangfpp
 * @Date:   2019-02-28 11:33:07
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2019-10-31 17:10:51
+* @Last Modified time: 2019-10-31 17:57:27
 */
 const fs = require('fs');
 const clear = require('clear');
@@ -24,12 +24,53 @@ if (args.length) {
 	       return console.error('目录已经存在');
 	   }
 	   console.log("目录创建成功。");
+
 	});
 } else {
 	console.log(
 		chalk.black('请输入正确的参数')
 	)
 }
+var copyFolder = function(srcDir, tarDir, cb) {
+  fs.readdir(srcDir, function(err, files) {
+    var count = 0
+    var checkEnd = function() {
+      ++count == files.length && cb && cb()
+    }
+
+    if (err) {
+      checkEnd()
+      return
+    }
+
+    files.forEach(function(file) {
+      var srcPath = path.join(srcDir, file)
+      var tarPath = path.join(tarDir, file)
+
+      fs.stat(srcPath, function(err, stats) {
+        if (stats.isDirectory()) {
+          console.log('mkdir', tarPath)
+          fs.mkdir(tarPath, function(err) {
+            if (err) {
+              console.log(err)
+              return
+            }
+
+            copyFolder(srcPath, tarPath, checkEnd)
+          })
+        } else {
+          copyFile(srcPath, tarPath, checkEnd)
+        }
+      })
+    })
+
+    //为空时直接回调
+    files.length === 0 && cb && cb()
+  })
+}
+copyFile('../package/' ${PWD}, err => {
+	console.log(err);
+})
 // clear(); // 清空控制台
 // console.log( // 
 // 	chalk.red(
