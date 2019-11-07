@@ -17,9 +17,12 @@
     "dependencies": {
         "chalk": "^2.4.2",
         "clear": "^0.1.0",
+        "download-git-repo": "^3.0.2",
         "figlet": "^1.2.1",
+        "git-down-repo": "^2.4.3",
         "inquirer": "^7.0.0",
         "minimist": "^1.2.0",
+        "ora": "^4.0.2",
         "yargs": "^14.2.0"
     }
 }

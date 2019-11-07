@@ -3,80 +3,80 @@
 * @Author: wangfpp
 * @Date:   2019-02-28 11:33:07
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2019-11-01 13:39:45
+* @Last Modified time: 2019-11-07 18:38:42
 */
 const fs = require('fs');
+const path = require('path');
 const chalk = require('chalk');
 const figlet = require('figlet');
-const package = require('../package.json'); // 引入package项目的相关信息
+const { version } = require('../package.json'); // 引入package项目的相关信息
 const minimist = require('minimist');
 const yargs = require('yargs');
 const {resolve} = require('path');
 const program = require('commander');
 const inquirer = require('inquirer');
+const download = require('download-git-repo');
+const ora = require('ora'); // loading
 
 const { getInfo } = require('../lib/userinfo.js'); // 获取当前user信息
+const { exists, copy } = require('../lib/copyfolder.js');
 
-let PWD = process.cwd()
-let args = yargs.argv._
-let projectName = args[1];
-let packageJson = {
-	version: "0.0.1"
-}; // package.json的构建信息
+const mapAction = {
+	create: {
+		alias: 'c',
+		description: '创建一个项目',
+		examples: [
+			'zkcli create x  x',
+			'zkcli c x x '
+		]
+	},
+	clone: {
+		alias: 'cl',
+		description: '克隆一个项目',
+		examples: [
+			'zkcli clone path',
+			'zkcli cl path'
+		]
+	},
+	'*': {
+		alias: '',
+		description: "command is not found",
+		examples: []
+	}
+}
 
-// cli argv参数获取
-program
-	.version(package.version, '-v, --version')
-	.description('自定义项目创建cli工具')
-	.option('create,  --init', '初始化项目')
-	.option('-d, --download', '下载一些东西')
-	.parse(process.argv);
+let commandList = Object.keys(mapAction);
 
-// prompt Terminal交互获取项目信息
-if (program.init) {
-	inquirer.prompt([
-		{
-			type: 'input',
-			name: 'projectName',
-			message: '请输入项目名称'
-		},
-		{
-			type: 'input',
-			name: 'description',
-			message: '项目描述信息'
-		},
-		{
-			type: 'input',
-			name: 'anthor',
-			message: '项目作者',
-			default: () => {
-				return getInfo('git config user.name');
+commandList.forEach(command => { // 循环注册command
+	let commandItem = mapAction[command];
+	program
+		.command(command)
+		.alias(commandItem.alias)
+		.description(commandItem.description)
+		.action(() => {
+			if (command === '*') {
+				console.log(commandItem.description);
+			} else {
+				const fn = require(path.resolve(__dirname, `${command}.js`))
+				const argv = process.argv.slice(3);
+				fn(...argv);
 			}
-		},
-		{
-			type: 'input',
-			name: 'email',
-			message: '电子邮箱',
-			default: () => {
-				return getInfo('git config user.email');
-			}
-		},
-		{
-			type: 'list',
-			name: 'type',
-			message: '使用哪种项目模板?',
-			choices: ['Vue', 'React']
-		}
-	]).then(result => {
-		for(let k in result){
-			if (k !== 'type') {
-				packageJson[k] = result[k];
-			}
-		}
-		console.log(packageJson);
+		})
+})
+
+// 监听用户的输入
+program.on('--help', function() {
+	console.log(`  Examples: \n`);
+	commandList.forEach(item => {
+		mapAction[item]['examples'].forEach(ex => {
+			console.log(`    ${ex}`);
+		})
 	})
-}
+})
 
-if (program.download) {
-	console.log('downloading.....')
-}
+program
+	.option('-v --version', '版本号')
+	.version(version)
+	.parse(process.argv)
+
+
