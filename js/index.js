@@ -3,12 +3,11 @@
 * @Author: wangfpp
 * @Date:   2019-02-28 11:33:07
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2019-11-07 18:38:42
+* @Last Modified time: 2019-11-12 15:07:28
 */
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
-const figlet = require('figlet');
 const { version } = require('../package.json'); // 引入package项目的相关信息
 const minimist = require('minimist');
 const yargs = require('yargs');
@@ -16,9 +15,7 @@ const {resolve} = require('path');
 const program = require('commander');
 const inquirer = require('inquirer');
 const download = require('download-git-repo');
-const ora = require('ora'); // loading
 
-const { getInfo } = require('../lib/userinfo.js'); // 获取当前user信息
 const { exists, copy } = require('../lib/copyfolder.js');
 
 const mapAction = {
