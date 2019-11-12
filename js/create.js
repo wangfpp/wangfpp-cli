@@ -2,7 +2,7 @@
 * @Author: wangfpp
 * @Date:   2019-11-07 18:31:24
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2019-11-12 17:08:00
+* @Last Modified time: 2019-11-12 17:48:27
 */
 const inquirer = require('inquirer');
 const fs = require("fs");
@@ -39,7 +39,7 @@ module.exports = async function(app) {
 			type: 'list',
 			message: '选择一个模板',
 			choices: async () => {
-				let data = await loadingfn(fetch_reps_list, '正在获取模板列表...');
+				let data = await loadingfn(fetch_reps_list, '正在获取模板列表...')();
 				let filter_repo = data.filter(item => {
 					return item.name.includes('template');
 				});
@@ -63,7 +63,6 @@ module.exports = async function(app) {
 						if (err) {
 							return console.error(`删除失败`);
 						} else {
-							console.log(1111)
 							await mkdirfn(dir, repo, true);
 						}
 					})
