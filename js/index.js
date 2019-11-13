@@ -3,7 +3,7 @@
 * @Author: wangfpp
 * @Date:   2019-02-28 11:33:07
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2019-11-12 15:07:28
+* @Last Modified time: 2019-11-13 09:26:01
 */
 const fs = require('fs');
 const path = require('path');
@@ -52,7 +52,7 @@ commandList.forEach(command => { // 循环注册command
 		.description(commandItem.description)
 		.action(() => {
 			if (command === '*') {
-				console.log(commandItem.description);
+				console.log(`${commandItem.description} 试一试 ${chalk.green('zkcli --help')}`);
 			} else {
 				const fn = require(path.resolve(__dirname, `${command}.js`))
 				const argv = process.argv.slice(3);
