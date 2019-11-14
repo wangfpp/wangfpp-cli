@@ -3,7 +3,7 @@
 * @Author: wangfpp
 * @Date:   2019-02-28 11:33:07
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2019-11-13 09:26:01
+* @Last Modified time: 2019-11-13 09:52:44
 */
 const fs = require('fs');
 const path = require('path');
@@ -18,7 +18,7 @@ const download = require('download-git-repo');
 
 const { exists, copy } = require('../lib/copyfolder.js');
 
-const mapAction = {
+const mapAction = { //  command的映射表
 	create: {
 		alias: 'c',
 		description: '创建一个项目',
