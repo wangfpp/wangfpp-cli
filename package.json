@@ -12,6 +12,10 @@
     "keywords": [
         "my-cli"
     ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wangfpp/wangfpp-cli.git"
+    },
     "author": "wangfpp@gmail.com",
     "homepage": "https://github.com/wangfpp/wangfpp-cli",
     "license": "ISC",
