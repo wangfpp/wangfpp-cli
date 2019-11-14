@@ -1,6 +1,6 @@
 {
     "name": "zkcli",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "开发自己的cli工具",
     "main": "./js/index.js",
     "bin": {
