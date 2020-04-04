@@ -27,7 +27,7 @@
         "figlet": "^1.2.1",
         "git-down-repo": "^2.4.3",
         "inquirer": "^7.0.0",
-        "minimist": "^1.2.0",
+        "minimist": "^1.2.3",
         "ora": "^4.0.2",
         "yargs": "^14.2.0"
     }
