@@ -2,7 +2,7 @@
 * @Author: wangfpp
 * @Date:   2019-11-07 18:31:24
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2019-11-12 17:48:27
+* @Last Modified time: 2020-04-05 17:55:05
 */
 const inquirer = require('inquirer');
 const fs = require("fs");
@@ -71,6 +71,7 @@ module.exports = async function(app) {
 				}
 		} else {
 			await mkdirfn(dir, repo, true);
+			process.exit(0)
 		}		
 	})
 }
