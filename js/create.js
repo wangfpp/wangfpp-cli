@@ -2,7 +2,7 @@
 * @Author: wangfpp
 * @Date:   2019-11-07 18:31:24
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2020-05-02 13:06:16
+* @Last Modified time: 2020-05-02 20:32:51
 */
 const inquirer = require('inquirer');
 const fs = require("fs");
@@ -85,7 +85,7 @@ module.exports = async function(app) {
 				console.log(Chalk.green(`npm install`));
 				process.exit(0)
 			} else {
-				console.error('下载失败');
+				console.error(Chalk.red('下载模板失败'));
 				process.exit(1);
 			}
 		}		
