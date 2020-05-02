@@ -1,6 +1,6 @@
 {
     "name": "zonekeycli",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "开发自己的cli工具",
     "main": "./js/index.js",
     "bin": {
