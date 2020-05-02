@@ -8,10 +8,10 @@
 - 定制化项目
 - 其他命令工具
 
-# 使用方法
+# 使用方法 
 
 ```bash 
-  npm install -g zkcli
+  npm install -g zonekeycli
 
 ```
 ```bash

@@ -1,5 +1,5 @@
 {
-    "name": "zkcli",
+    "name": "zonekeycli",
     "version": "1.0.7",
     "description": "开发自己的cli工具",
     "main": "./js/index.js",

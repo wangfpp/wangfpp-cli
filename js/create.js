@@ -2,10 +2,11 @@
 * @Author: wangfpp
 * @Date:   2019-11-07 18:31:24
 * @Last Modified by:   wangfpp
-* @Last Modified time: 2020-04-05 17:55:05
+* @Last Modified time: 2020-05-02 13:06:16
 */
 const inquirer = require('inquirer');
 const fs = require("fs");
+const Chalk = require('chalk');
 const path = require('path');
 const { getInfo } = require('../lib/userinfo.js');
 const { fetch_reps_list, loadingfn, downloadGitRepoFn, mkdirfn } = require('../lib/comm.js');
@@ -40,11 +41,13 @@ module.exports = async function(app) {
 			message: '选择一个模板',
 			choices: async () => {
 				let data = await loadingfn(fetch_reps_list, '正在获取模板列表...')();
-				let filter_repo = data.filter(item => {
-					return item.name.includes('template');
-				});
-				let repoList = filter_repo.map(item => item.name);
-				return repoList; 
+				if (data) {
+					let filter_repo = data.filter(item => {
+						return item.name.includes('template');
+					});
+					let repoList = filter_repo.map(item => item.name);
+					return repoList;
+				}
 			}
 		}
 	]).then(async result => {
@@ -62,16 +65,29 @@ module.exports = async function(app) {
 					rmdir(dir, async err => {
 						if (err) {
 							return console.error(`删除失败`);
+							process.exit(err)
 						} else {
-							await mkdirfn(dir, repo, true);
+							console.log('删除成功')
+							let data = await mkdirfn(dir, repo, true)
+							console.log(111, data)
 						}
 					})
 				} else {
 					process.exit(0)
 				}
 		} else {
-			await mkdirfn(dir, repo, true);
-			process.exit(0)
+			let mkResult =  await mkdirfn(dir, repo, true)
+			if (mkResult) {
+				console.log(Chalk.green(`项目克隆成功`));
+				console.log('');
+				console.log(Chalk.green(`cd ${mkResult}`));
+				console.log('');
+				console.log(Chalk.green(`npm install`));
+				process.exit(0)
+			} else {
+				console.error('下载失败');
+				process.exit(1);
+			}
 		}		
 	})
 }
